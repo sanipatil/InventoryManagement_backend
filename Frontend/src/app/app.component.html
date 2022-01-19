@@ -1,0 +1,115 @@
+<div class="app">
+  <h2 class="title">{{ title }}</h2>
+  <div>
+    <form
+      [formGroup]="createFormdata"
+      (ngSubmit)="createProduct(createFormdata.value)"
+    >
+      <div>
+        <h2>Create New Product</h2>
+        <label for="productname"> Product Name: </label>
+        <input
+          id="product_name"
+          type="text"
+          formControlName="createproductname"
+        />
+      </div>
+      <div>
+        <label for="productinventoryinstock">
+          Product Quantity In Stock:
+        </label>
+        <input
+          id="product_inventory_instock"
+          type="text"
+          formControlName="createproductinventoryinstock"
+        />
+      </div>
+      <div>
+        <label for="productprice"> Product Price </label>
+        <input
+          id="product_price"
+          type="text"
+          formControlName="createproductprice"
+        />
+      </div>
+      <button mat-raised-button type="submit">Create</button>
+      <div *ngIf="createStatus">New Product Created Successfully!</div>
+    </form>
+    <hr />
+    <form
+      [formGroup]="updateFormdata"
+      (ngSubmit)="updateProduct(updateFormdata.value)"
+    >
+      <div>
+        <div>
+          <h2>Update Product</h2>
+          <label for="product">Select Product to Update: </label>
+          <select formControlName="updateproducts" class="form-control">
+            <option>Select a Product</option>
+            <option *ngFor="let item of this.allProducts">
+              {{ item.productname }}
+            </option>
+          </select>
+        </div>
+        <label for="productname"> Product Name: </label>
+        <input
+          id="product_name"
+          type="text"
+          formControlName="updateproductname"
+        />
+      </div>
+      <div>
+        <label for="productinventoryinstock">
+          Product Quantity In Stock:
+        </label>
+        <input
+          id="product_inventory_instock"
+          type="text"
+          formControlName="updateproductinventoryinstock"
+        />
+      </div>
+      <div>
+        <label for="productprice"> Product Price </label>
+        <input
+          id="product_price"
+          type="text"
+          formControlName="updateproductprice"
+        />
+      </div>
+      <button mat-raised-button type="submit">Update</button>
+      <div *ngIf="updateStatus">Product Updated Successfully!</div>
+    </form>
+    <hr />
+    <form
+      [formGroup]="deleteFormdata"
+      (ngSubmit)="deleteProduct(deleteFormdata.value)"
+    >
+      <div>
+        <h2>Delete Product</h2>
+        <label for="product">Select Product to Delete:</label>
+        <select formControlName="deleteproducts" class="form-control">
+          <option>Select a Product</option>
+          <option *ngFor="let item of this.allProducts">
+            {{ item.productname }}
+          </option>
+        </select>
+      </div>
+      <button mat-raised-button type="submit">Delete</button>
+      <div *ngIf="deleteStatus">Product Deleted Successfully!</div>
+    </form>
+    <hr />
+    <h2>View All Products</h2>
+    <button mat-raised-button (click)="viewProducts()">View</button>
+  </div>
+  <div *ngFor="let item of this.listProducts">
+    <b>Product ID: </b>{{ item.productid }} | <b>Product Name: </b
+    >{{ item.productname }} | <b>Quantity In Stock: </b
+    >{{ item.productinventoryinstock }} | <b>Product Price: </b
+    >{{ item.productprice }}
+  </div>
+  <hr />
+  <h2>Export Product Data</h2>
+  <button mat-raised-button (click)="exportToCsv()">
+    Export Product Data to CSV
+  </button>
+</div>
